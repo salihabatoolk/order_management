@@ -1,0 +1,29 @@
+<h1>Orders</h1>
+
+<a href={~p"/orders/new"}>Create New Order</a>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Customer</th>
+      <th>Items</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= for order <- @orders do %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= order.customer %></td>
+        <td><%= Enum.join(order.items, ", ") %></td>
+        <td><%= order.status %></td>
+        <td>
+          <a href={~p"/orders/#{order.id}"}>View</a>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

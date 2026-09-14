@@ -1,0 +1,32 @@
+<h1>Order Details</h1>
+
+<p>
+  <strong>ID:</strong>
+  <%= @order.id %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @order.customer %>
+</p>
+
+<p>
+  <strong>Items:</strong>
+  <%= Enum.join(@order.items, ", ") %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @order.status %>
+</p>
+<a href={~p"/orders/#{@order.id}/edit"}>Edit Order</a>
+
+<br />
+<br />
+
+<.form for={%{}} action={~p"/orders/#{@order.id}"} method="post">
+  <input type="hidden" name="_method" value="delete" />
+  <button type="submit">Delete Order</button>
+</.form>
+
+<a href={~p"/orders"}>Back to Orders</a>

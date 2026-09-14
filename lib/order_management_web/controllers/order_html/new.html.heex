@@ -1,0 +1,46 @@
+<h1>New Order</h1>
+
+<.form for={@changeset} action={~p"/orders"}>
+
+  <div>
+    <label for="customer">Customer Name:</label>
+    <input
+      type="text"
+      id="customer"
+      name="order[customer]"
+      placeholder="Enter customer name"
+    />
+  </div>
+
+  <br />
+
+  <div>
+    <label for="items">Items:</label>
+    <input
+      type="text"
+      id="items"
+      name="order[items]"
+      placeholder="e.g. Laptop, Mouse"
+    />
+  </div>
+
+  <br />
+
+  <div>
+    <label for="status">Status:</label>
+    <select id="status" name="order[status]">
+      <option value="pending">Pending</option>
+      <option value="completed">Completed</option>
+      <option value="cancelled">Cancelled</option>
+    </select>
+  </div>
+
+  <br />
+
+  <button type="submit">Create Order</button>
+
+</.form>
+
+<br />
+
+<a href={~p"/orders"}>Back to Orders</a>

@@ -1,0 +1,36 @@
+<h1>Edit Order</h1>
+
+<.form for={@changeset} action={~p"/orders/#{@order.id}"} method="post">
+  <input type="hidden" name="_method" value="patch" />
+
+  <div>
+    <label>Customer</label>
+    <input
+      type="text"
+      name="order[customer]"
+      value={@order.customer}
+    />
+  </div>
+
+  <div>
+    <label>Items</label>
+    <input
+      type="text"
+      name="order[items][]"
+      value={Enum.join(@order.items, ", ")}
+    />
+  </div>
+
+  <div>
+    <label>Status</label>
+    <select name="order[status]">
+      <option value="pending">Pending</option>
+      <option value="completed">Completed</option>
+      <option value="cancelled">Cancelled</option>
+    </select>
+  </div>
+
+  <button type="submit">Update Order</button>
+</.form>
+
+<a href={~p"/orders"}>Back to Orders</a>
