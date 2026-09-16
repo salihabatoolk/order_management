@@ -1,0 +1,40 @@
+
+<h1>Edit Customer</h1>
+
+<.form for={@changeset} action={~p"/customers/#{@customer.id}"} method="put">
+
+  <div>
+    <label for="name">Name:</label>
+
+    <input
+      type="text"
+      id="name"
+      name="customer[name]"
+      value={@customer.name}
+      placeholder="Enter customer name"
+    />
+  </div>
+
+  <br />
+
+  <div>
+    <label for="email">Email:</label>
+
+    <input
+      type="email"
+      id="email"
+      name="customer[email]"
+      value={@customer.email}
+      placeholder="Enter customer email"
+    />
+  </div>
+
+  <br />
+
+  <button type="submit">Update Customer</button>
+
+</.form>
+
+<br />
+
+<a href={~p"/customers"}>Back to Customers</a>

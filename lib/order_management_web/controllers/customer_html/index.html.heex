@@ -1,0 +1,46 @@
+<h1>Customers</h1>
+
+<a href={~p"/customers/new"}>New Customer</a>
+
+<br />
+<br />
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= for customer <- @customers do %>
+      <tr>
+        <td><%= customer.id %></td>
+
+```
+    <td><%= customer.name %></td>
+
+    <td><%= customer.email %></td>
+
+    <td>
+      <a href={~p"/customers/#{customer.id}"}>View</a>
+      |
+      <a href={~p"/customers/#{customer.id}/edit"}>Edit</a>
+      |
+      <.link
+        href={~p"/customers/#{customer.id}"}
+        method="delete"
+        data-confirm="Are you sure you want to delete this customer?"
+      >
+        Delete
+      </.link>
+    </td>
+  </tr>
+<% end %>
+```
+
+  </tbody>
+</table>

@@ -1,0 +1,36 @@
+
+<h1>New Customer</h1>
+
+<.form for={@changeset} action={~p"/customers"}>
+
+  <div>
+    <label for="name">Name:</label>
+    <input
+      type="text"
+      id="name"
+      name="customer[name]"
+      placeholder="Enter customer name"
+    />
+  </div>
+
+  <br />
+
+  <div>
+    <label for="email">Email:</label>
+    <input
+      type="email"
+      id="email"
+      name="customer[email]"
+      placeholder="Enter customer email"
+    />
+  </div>
+
+  <br />
+
+  <button type="submit">Create Customer</button>
+
+</.form>
+
+<br />
+
+<a href={~p"/customers"}>Back to Customers</a>

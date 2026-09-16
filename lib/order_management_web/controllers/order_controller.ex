@@ -1,8 +1,10 @@
+
 defmodule OrderManagementWeb.OrderController do
   use OrderManagementWeb, :controller
 
   alias OrderManagement.Orders.Order
   alias OrderManagement.Orders.OrderService
+  alias OrderManagement.Customers.CustomerService
 
   def index(conn, _params) do
     orders = OrderService.list_orders()
@@ -16,21 +18,34 @@ defmodule OrderManagementWeb.OrderController do
 
   def new(conn, _params) do
     changeset = Order.changeset(%Order{}, %{})
-    render(conn, :new, changeset: changeset)
+    customers = CustomerService.list_customers()
+
+    render(conn, :new,
+      changeset: changeset,
+      customers: customers
+    )
   end
 
   def edit(conn, %{"id" => id}) do
     order = OrderService.get_order(id)
     changeset = Order.changeset(order, %{})
+    customers = CustomerService.list_customers()
 
-    render(conn, :edit, order: order, changeset: changeset)
+    render(conn, :edit,
+      order: order,
+      changeset: changeset,
+      customers: customers
+    )
   end
 
   def create(conn, %{"order" => order_params}) do
-    order_params = %{
-      order_params
-      | "items" => String.split(order_params["items"], ",", trim: true)
-    }
+    order_params =
+      Map.update(
+        order_params,
+        "items",
+        [],
+        &String.split(&1, ",", trim: true)
+      )
 
     case OrderService.create_order(order_params) do
       {:ok, order} ->
@@ -39,28 +54,42 @@ defmodule OrderManagementWeb.OrderController do
         |> render(:show, order: order)
 
       {:error, changeset} ->
+        customers = CustomerService.list_customers()
+
         conn
         |> put_status(:unprocessable_entity)
-        |> render(:new, changeset: changeset)
+        |> render(:new,
+          changeset: changeset,
+          customers: customers
+        )
     end
   end
 
   def update(conn, %{"id" => id, "order" => order_params}) do
     order = OrderService.get_order(id)
 
-    order_params = %{
-      order_params
-      | "items" => String.split(order_params["items"], ",", trim: true)
-    }
+    order_params =
+      Map.update(
+        order_params,
+        "items",
+        [],
+        &String.split(&1, ",", trim: true)
+      )
 
     case OrderService.update_order(order, order_params) do
       {:ok, order} ->
         render(conn, :show, order: order)
 
       {:error, changeset} ->
+        customers = CustomerService.list_customers()
+
         conn
         |> put_status(:unprocessable_entity)
-        |> render(:edit, order: order, changeset: changeset)
+        |> render(:edit,
+          order: order,
+          changeset: changeset,
+          customers: customers
+        )
     end
   end
 
@@ -75,7 +104,11 @@ defmodule OrderManagementWeb.OrderController do
             redirect(conn, to: ~p"/orders")
 
           {:error, _changeset} ->
-            send_resp(conn, :unprocessable_entity, "Unable to delete order")
+            send_resp(
+              conn,
+              :unprocessable_entity,
+              "Unable to delete order"
+            )
         end
     end
   end

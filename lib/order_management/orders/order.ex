@@ -3,9 +3,10 @@ defmodule OrderManagement.Orders.Order do
   import Ecto.Changeset
 
   schema "orders" do
-    field :customer, :string
     field :items, {:array, :string}
     field :status, Ecto.Enum, values: [:pending, :completed, :cancelled]
+
+    belongs_to :customer, OrderManagement.Customers.Customer
 
     timestamps(type: :utc_datetime)
   end
@@ -13,7 +14,7 @@ defmodule OrderManagement.Orders.Order do
   @doc false
   def changeset(order, attrs) do
     order
-    |> cast(attrs, [:customer, :items, :status])
-    |> validate_required([:customer, :items, :status])
+    |> cast(attrs, [:customer_id, :items, :status])
+    |> validate_required([:customer_id, :items, :status])
   end
 end

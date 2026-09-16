@@ -1,21 +1,27 @@
+
 <h1>New Order</h1>
 
 <.form for={@changeset} action={~p"/orders"}>
 
   <div>
-    <label for="customer">Customer Name:</label>
-    <input
-      type="text"
-      id="customer"
-      name="order[customer]"
-      placeholder="Enter customer name"
-    />
+    <label for="customer_id">Customer:</label>
+
+    <select id="customer_id" name="order[customer_id]">
+      <option value="">Select Customer</option>
+
+      <%= for customer <- @customers do %>
+        <option value={customer.id}>
+          <%= customer.name %>
+        </option>
+      <% end %>
+    </select>
   </div>
 
   <br />
 
   <div>
     <label for="items">Items:</label>
+
     <input
       type="text"
       id="items"
@@ -28,6 +34,7 @@
 
   <div>
     <label for="status">Status:</label>
+
     <select id="status" name="order[status]">
       <option value="pending">Pending</option>
       <option value="completed">Completed</option>
