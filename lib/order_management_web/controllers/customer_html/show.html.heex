@@ -1,26 +1,82 @@
+<div class="min-h-screen bg-base-200 p-6">
+  <div class="mx-auto max-w-3xl">
 
-<h1>Customer Details</h1>
+    <div class="mb-8">
+      <a
+        href={~p"/customers"}
+        class="text-sm text-primary hover:underline"
+      >
+        ← Back to Customers
+      </a>
 
-<p>
-  <strong>ID:</strong>
-  <%= @customer.id %>
-</p>
+      <div class="mt-4 flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl font-bold">Customer Details</h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @customer.name %>
-</p>
+          <p class="mt-1 text-base-content/60">
+            View complete customer information.
+          </p>
+        </div>
 
-<p>
-  <strong>Email:</strong>
-  <%= @customer.email %>
-</p>
+        <span class="badge badge-primary badge-lg">
+          Customer #<%= @customer.id %>
+        </span>
+      </div>
+    </div>
 
-<br />
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
 
-<a href={~p"/customers/#{@customer.id}/edit"}>Edit Customer</a>
+        <div class="mb-6">
+          <h2 class="text-lg font-bold mb-3">
+            Customer Information
+          </h2>
 
-<br />
-<br />
+          <div class="rounded-xl bg-base-200 p-5">
 
-<a href={~p"/customers"}>Back to Customers</a>
+            <div class="mb-4">
+              <p class="text-sm text-base-content/50">
+                Name
+              </p>
+
+              <p class="text-xl font-semibold">
+                <%= @customer.name %>
+              </p>
+            </div>
+
+            <div>
+              <p class="text-sm text-base-content/50">
+                Email
+              </p>
+
+              <p class="text-base font-medium">
+                <%= @customer.email %>
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-3">
+
+          <a
+            href={~p"/customers/#{@customer.id}/edit"}
+            class="btn btn-warning"
+          >
+            Edit Customer
+          </a>
+
+          <a
+            href={~p"/customers"}
+            class="btn btn-ghost"
+          >
+            Back to Customers
+          </a>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

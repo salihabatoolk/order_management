@@ -1,36 +1,173 @@
-<h1>Edit Order</h1>
+<div class="min-h-screen bg-base-200 p-6">
 
-<.form for={@changeset} action={~p"/orders/#{@order.id}"} method="post">
-  <input type="hidden" name="_method" value="patch" />
+  <div class="mx-auto max-w-3xl">
 
-  <div>
-    <label>Customer</label>
-    <input
-      type="text"
-      name="order[customer]"
-      value={@order.customer}
-    />
+    <!-- Header -->
+    <div class="mb-8">
+      <a
+        href={~p"/orders"}
+        class="text-sm text-primary hover:underline"
+      >
+        ← Back to Orders
+      </a>
+
+      <h1 class="mt-4 text-3xl font-bold">
+        Edit Order
+      </h1>
+
+      <p class="mt-1 text-base-content/60">
+        Update the order information below.
+      </p>
+    </div>
+
+    <!-- Form Card -->
+    <div class="card bg-base-100 shadow-xl">
+
+      <div class="card-body">
+
+        <div class="mb-6 flex items-center justify-between">
+          <h2 class="card-title">
+            Order Information
+          </h2>
+
+          <span class="badge badge-ghost">
+            Order #<%= @order.id %>
+          </span>
+        </div>
+
+        <.form
+          for={@changeset}
+          action={~p"/orders/#{@order.id}"}
+          method="put"
+        >
+
+          <!-- Customer -->
+          <div class="form-control mb-6">
+
+            <label class="label" for="customer_id">
+              <span class="label-text font-semibold">
+                Customer
+              </span>
+            </label>
+
+            <select
+              id="customer_id"
+              name="order[customer_id]"
+              class="select select-bordered w-full"
+            >
+
+              <option value="">
+                Select a customer
+              </option>
+
+              <%= for customer <- @customers do %>
+                <option
+                  value={customer.id}
+                  selected={customer.id == @order.customer_id}
+                >
+                  <%= customer.name %> — <%= customer.email %>
+                </option>
+              <% end %>
+
+            </select>
+
+            <label class="label">
+              <span class="label-text-alt text-base-content/50">
+                Select the customer for this order
+              </span>
+            </label>
+
+          </div>
+
+          <!-- Items -->
+          <div class="form-control mb-6">
+
+            <label class="label" for="items">
+              <span class="label-text font-semibold">
+                Items
+              </span>
+            </label>
+
+            <input
+              type="text"
+              id="items"
+              name="order[items]"
+              value={Enum.join(@order.items, ", ")}
+              placeholder="e.g. Laptop, Mouse, Keyboard"
+              class="input input-bordered w-full"
+            />
+
+            <label class="label">
+              <span class="label-text-alt text-base-content/50">
+                Separate multiple items with commas
+              </span>
+            </label>
+
+          </div>
+
+          <!-- Status -->
+          <div class="form-control mb-8">
+
+            <label class="label" for="status">
+              <span class="label-text font-semibold">
+                Order Status
+              </span>
+            </label>
+
+            <select
+              id="status"
+              name="order[status]"
+              class="select select-bordered w-full"
+            >
+
+              <option
+                value="pending"
+                selected={@order.status == :pending}
+              >
+                Pending
+              </option>
+
+              <option
+                value="completed"
+                selected={@order.status == :completed}
+              >
+                Completed
+              </option>
+
+              <option
+                value="cancelled"
+                selected={@order.status == :cancelled}
+              >
+                Cancelled
+              </option>
+
+            </select>
+
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex justify-end gap-3">
+
+            <a
+              href={~p"/orders"}
+              class="btn btn-ghost"
+            >
+              Cancel
+            </a>
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+            >
+              Save Changes
+            </button>
+
+          </div>
+
+        </.form>
+
+      </div>
+    </div>
+
   </div>
-
-  <div>
-    <label>Items</label>
-    <input
-      type="text"
-      name="order[items][]"
-      value={Enum.join(@order.items, ", ")}
-    />
-  </div>
-
-  <div>
-    <label>Status</label>
-    <select name="order[status]">
-      <option value="pending">Pending</option>
-      <option value="completed">Completed</option>
-      <option value="cancelled">Cancelled</option>
-    </select>
-  </div>
-
-  <button type="submit">Update Order</button>
-</.form>
-
-<a href={~p"/orders"}>Back to Orders</a>
+</div>

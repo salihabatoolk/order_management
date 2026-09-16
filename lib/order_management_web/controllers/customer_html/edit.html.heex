@@ -1,40 +1,103 @@
+<div class="min-h-screen bg-base-200 p-6">
 
-<h1>Edit Customer</h1>
+  <div class="mx-auto max-w-2xl">
 
-<.form for={@changeset} action={~p"/customers/#{@customer.id}"} method="put">
+    <!-- Header -->
+    <div class="mb-8">
+      <a
+        href={~p"/customers"}
+        class="text-sm text-primary hover:underline"
+      >
+        ← Back to Customers
+      </a>
 
-  <div>
-    <label for="name">Name:</label>
+      <h1 class="mt-4 text-3xl font-bold">
+        Edit Customer
+      </h1>
 
-    <input
-      type="text"
-      id="name"
-      name="customer[name]"
-      value={@customer.name}
-      placeholder="Enter customer name"
-    />
+      <p class="mt-1 text-base-content/60">
+        Update the customer's information.
+      </p>
+    </div>
+
+    <!-- Form Card -->
+    <div class="card bg-base-100 shadow-xl">
+
+      <div class="card-body">
+
+        <h2 class="card-title mb-6">
+          Customer Information
+        </h2>
+
+        <.form
+          for={@changeset}
+          action={~p"/customers/#{@customer.id}"}
+          method="put"
+        >
+
+          <!-- Name -->
+          <div class="form-control mb-6">
+
+            <label class="label" for="name">
+              <span class="label-text font-semibold">
+                Customer Name
+              </span>
+            </label>
+
+            <input
+              type="text"
+              id="name"
+              name="customer[name]"
+              value={@customer.name}
+              placeholder="Enter customer name"
+              class="input input-bordered w-full"
+            />
+
+          </div>
+
+          <!-- Email -->
+          <div class="form-control mb-8">
+
+            <label class="label" for="email">
+              <span class="label-text font-semibold">
+                Email Address
+              </span>
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              name="customer[email]"
+              value={@customer.email}
+              placeholder="customer@example.com"
+              class="input input-bordered w-full"
+            />
+
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex justify-end gap-3">
+
+            <a
+              href={~p"/customers"}
+              class="btn btn-ghost"
+            >
+              Cancel
+            </a>
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+            >
+              Save Changes
+            </button>
+
+          </div>
+
+        </.form>
+
+      </div>
+    </div>
+
   </div>
-
-  <br />
-
-  <div>
-    <label for="email">Email:</label>
-
-    <input
-      type="email"
-      id="email"
-      name="customer[email]"
-      value={@customer.email}
-      placeholder="Enter customer email"
-    />
-  </div>
-
-  <br />
-
-  <button type="submit">Update Customer</button>
-
-</.form>
-
-<br />
-
-<a href={~p"/customers"}>Back to Customers</a>
+</div>

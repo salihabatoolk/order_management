@@ -1,35 +1,129 @@
-<h1>Order Details</h1>
+<div class="min-h-screen bg-base-200 p-6">
 
-<p>
-  <strong>ID:</strong>
-  <%= @order.id %>
-</p>
+  <div class="mx-auto max-w-3xl">
 
-<p>
-  <strong>Customer:</strong>
-  <%= @order.customer.name %>
-</p>
+    <!-- Header -->
+    <div class="mb-8">
+      <a
+        href={~p"/orders"}
+        class="text-sm text-primary hover:underline"
+      >
+        ← Back to Orders
+      </a>
 
-<p>
-  <strong>Email:</strong>
-  <%= @order.customer.email %>
-</p>
+      <div class="mt-4 flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl font-bold">
+            Order Details
+          </h1>
 
-<p>
-  <strong>Items:</strong>
-  <%= Enum.join(@order.items, ", ") %>
-</p>
+          <p class="mt-1 text-base-content/60">
+            View complete information about this order.
+          </p>
+        </div>
 
-<p>
-  <strong>Status:</strong>
-  <%= @order.status %>
-</p>
+        <span class="badge badge-primary badge-lg">
+          Order #<%= @order.id %>
+        </span>
+      </div>
+    </div>
 
-<br />
+    <!-- Order Card -->
+    <div class="card bg-base-100 shadow-xl">
 
-<a href={~p"/orders"}>Back to Orders</a>
+      <div class="card-body">
 
-<br />
-<br />
+        <!-- Customer Section -->
+        <div class="mb-6">
+          <h2 class="text-lg font-bold mb-3">
+            Customer
+          </h2>
 
-<a href={~p"/orders/#{@order.id}/edit"}>Edit Order</a>
+          <div class="rounded-xl bg-base-200 p-4">
+
+            <%= if @order.customer do %>
+
+              <p class="font-semibold text-lg">
+                <%= @order.customer.name %>
+              </p>
+
+              <p class="text-sm text-base-content/60 mt-1">
+                <%= @order.customer.email %>
+              </p>
+
+            <% else %>
+
+              <p class="text-base-content/50">
+                No customer assigned
+              </p>
+
+            <% end %>
+
+          </div>
+        </div>
+
+        <!-- Items -->
+        <div class="mb-6">
+          <h2 class="text-lg font-bold mb-3">
+            Items
+          </h2>
+
+          <div class="rounded-xl border border-base-300 p-4">
+            <%= for item <- @order.items do %>
+              <span class="badge badge-outline mr-2 mb-2">
+                <%= item %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Status -->
+        <div class="mb-8">
+          <h2 class="text-lg font-bold mb-3">
+            Status
+          </h2>
+
+          <%= case @order.status do %>
+
+            <% :pending -> %>
+              <span class="badge badge-warning badge-lg">
+                Pending
+              </span>
+
+            <% :completed -> %>
+              <span class="badge badge-success badge-lg">
+                Completed
+              </span>
+
+            <% :cancelled -> %>
+              <span class="badge badge-error badge-lg">
+                Cancelled
+              </span>
+
+          <% end %>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex justify-end gap-3">
+
+          <a
+            href={~p"/orders/#{@order.id}/edit"}
+            class="btn btn-warning"
+          >
+            Edit Order
+          </a>
+
+          <a
+            href={~p"/orders"}
+            class="btn btn-ghost"
+          >
+            Back to Orders
+          </a>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

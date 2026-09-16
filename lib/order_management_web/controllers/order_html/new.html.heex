@@ -1,53 +1,148 @@
+<div class="min-h-screen bg-base-200 p-6">
 
-<h1>New Order</h1>
+  <div class="mx-auto max-w-3xl">
 
-<.form for={@changeset} action={~p"/orders"}>
+    <!-- Header -->
+    <div class="mb-8">
+      <a
+        href={~p"/orders"}
+        class="text-sm text-primary hover:underline"
+      >
+        ← Back to Orders
+      </a>
 
-  <div>
-    <label for="customer_id">Customer:</label>
+      <h1 class="mt-4 text-3xl font-bold">
+        Create New Order
+      </h1>
 
-    <select id="customer_id" name="order[customer_id]">
-      <option value="">Select Customer</option>
+      <p class="mt-1 text-base-content/60">
+        Add a new order and assign it to a customer.
+      </p>
+    </div>
 
-      <%= for customer <- @customers do %>
-        <option value={customer.id}>
-          <%= customer.name %>
-        </option>
-      <% end %>
-    </select>
+    <!-- Form Card -->
+    <div class="card bg-base-100 shadow-xl">
+
+      <div class="card-body">
+
+        <h2 class="card-title mb-4">
+          Order Information
+        </h2>
+
+        <.form for={@changeset} action={~p"/orders"}>
+
+          <!-- Customer -->
+          <div class="form-control mb-6">
+
+            <label class="label" for="customer_id">
+              <span class="label-text font-semibold">
+                Customer
+              </span>
+            </label>
+
+            <select
+              id="customer_id"
+              name="order[customer_id]"
+              class="select select-bordered w-full"
+            >
+              <option value="">
+                Select a customer
+              </option>
+
+              <%= for customer <- @customers do %>
+                <option value={customer.id}>
+                  <%= customer.name %> — <%= customer.email %>
+                </option>
+              <% end %>
+            </select>
+
+            <label class="label">
+              <span class="label-text-alt text-base-content/50">
+                Select an existing customer
+              </span>
+            </label>
+
+          </div>
+
+          <!-- Add Customer -->
+          <div class="mb-6">
+            <a
+              href={~p"/customers/new"}
+              class="btn btn-outline btn-secondary btn-sm"
+            >
+              + Add New Customer
+            </a>
+          </div>
+
+          <!-- Items -->
+          <div class="form-control mb-6">
+
+            <label class="label" for="items">
+              <span class="label-text font-semibold">
+                Items
+              </span>
+            </label>
+
+            <input
+              type="text"
+              id="items"
+              name="order[items]"
+              placeholder="e.g. Laptop, Mouse, Keyboard"
+              class="input input-bordered w-full"
+            />
+
+            <label class="label">
+              <span class="label-text-alt text-base-content/50">
+                Separate multiple items with commas
+              </span>
+            </label>
+
+          </div>
+
+          <!-- Status -->
+          <div class="form-control mb-8">
+
+            <label class="label" for="status">
+              <span class="label-text font-semibold">
+                Order Status
+              </span>
+            </label>
+
+            <select
+              id="status"
+              name="order[status]"
+              class="select select-bordered w-full"
+            >
+              <option value="pending">Pending</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex justify-end gap-3">
+
+            <a
+              href={~p"/orders"}
+              class="btn btn-ghost"
+            >
+              Cancel
+            </a>
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+            >
+              Create Order
+            </button>
+
+          </div>
+
+        </.form>
+
+      </div>
+    </div>
+
   </div>
-
-  <br />
-
-  <div>
-    <label for="items">Items:</label>
-
-    <input
-      type="text"
-      id="items"
-      name="order[items]"
-      placeholder="e.g. Laptop, Mouse"
-    />
-  </div>
-
-  <br />
-
-  <div>
-    <label for="status">Status:</label>
-
-    <select id="status" name="order[status]">
-      <option value="pending">Pending</option>
-      <option value="completed">Completed</option>
-      <option value="cancelled">Cancelled</option>
-    </select>
-  </div>
-
-  <br />
-
-  <button type="submit">Create Order</button>
-
-</.form>
-
-<br />
-
-<a href={~p"/orders"}>Back to Orders</a>
+</div>

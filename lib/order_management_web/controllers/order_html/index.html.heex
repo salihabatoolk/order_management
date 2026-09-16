@@ -1,68 +1,140 @@
-<h1>Orders</h1>
+<div class="min-h-screen bg-base-200 p-6">
 
-<a href={~p"/orders/new"}>New Order</a>
+  <!-- Header -->
+  <div class="mb-8 flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold">Orders</h1>
+      <p class="mt-1 text-base-content/60">
+        Manage and track all customer orders
+      </p>
+    </div>
 
-<br />
-<br />
+    <a
+      href={~p"/orders/new"}
+      class="btn btn-primary"
+    >
+      + New Order
+    </a>
+  </div>
 
-<table border="1">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Customer</th>
-      <th>Email</th>
-      <th>Items</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
+  <!-- Orders Card -->
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
 
-  <tbody>
-    <%= for order <- @orders do %>
-      <tr>
-        <td><%= order.id %></td>
+      <div class="mb-4">
+        <h2 class="card-title">All Orders</h2>
+      </div>
 
-```
-    <td>
-      <%= if order.customer do %>
-        <%= order.customer.name %>
-      <% else %>
-        No Customer
-      <% end %>
-    </td>
+      <div class="overflow-x-auto">
 
-    <td>
-      <%= if order.customer do %>
-        <%= order.customer.email %>
-      <% else %>
-        -
-      <% end %>
-    </td>
+        <table class="table table-zebra">
 
-    <td>
-      <%= Enum.join(order.items, ", ") %>
-    </td>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Customer</th>
+              <th>Email</th>
+              <th>Items</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
 
-    <td>
-      <%= order.status %>
-    </td>
+          <tbody>
 
-    <td>
-      <a href={~p"/orders/#{order.id}"}>View</a>
-      |
-      <a href={~p"/orders/#{order.id}/edit"}>Edit</a>
-      |
-      <.link
-        href={~p"/orders/#{order.id}"}
-        method="delete"
-        data-confirm="Are you sure you want to delete this order?"
-      >
-        Delete
-      </.link>
-    </td>
-  </tr>
-<% end %>
-```
+            <%= for order <- @orders do %>
 
-  </tbody>
-</table>
+              <tr>
+
+                <td class="font-semibold">
+                  #<%= order.id %>
+                </td>
+
+                <td>
+                  <%= if order.customer do %>
+                    <div class="font-medium">
+                      <%= order.customer.name %>
+                    </div>
+                  <% else %>
+                    <span class="text-base-content/50">
+                      No Customer
+                    </span>
+                  <% end %>
+                </td>
+
+                <td>
+                  <%= if order.customer do %>
+                    <span class="text-sm text-base-content/60">
+                      <%= order.customer.email %>
+                    </span>
+                  <% else %>
+                    -
+                  <% end %>
+                </td>
+
+                <td>
+                  <%= Enum.join(order.items, ", ") %>
+                </td>
+
+                <td>
+                  <%= case order.status do %>
+                    <% :pending -> %>
+                      <span class="badge badge-warning">
+                        Pending
+                      </span>
+
+                    <% :completed -> %>
+                      <span class="badge badge-success">
+                        Completed
+                      </span>
+
+                    <% :cancelled -> %>
+                      <span class="badge badge-error">
+                        Cancelled
+                      </span>
+                  <% end %>
+                </td>
+
+                <td>
+                  <div class="flex gap-2">
+
+                    <a
+                      href={~p"/orders/#{order.id}"}
+                      class="btn btn-sm btn-info btn-outline"
+                    >
+                      View
+                    </a>
+
+                    <a
+                      href={~p"/orders/#{order.id}/edit"}
+                      class="btn btn-sm btn-warning btn-outline"
+                    >
+                      Edit
+                    </a>
+
+                    <.link
+                      href={~p"/orders/#{order.id}"}
+                      method="delete"
+                      data-confirm="Are you sure you want to delete this order?"
+                      class="btn btn-sm btn-error btn-outline"
+                    >
+                      Delete
+                    </.link>
+
+                  </div>
+                </td>
+
+              </tr>
+
+            <% end %>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

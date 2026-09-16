@@ -1,4 +1,3 @@
-
 defmodule OrderManagementWeb.OrderController do
   use OrderManagementWeb, :controller
 
@@ -12,8 +11,15 @@ defmodule OrderManagementWeb.OrderController do
   end
 
   def show(conn, %{"id" => id}) do
-    order = OrderService.get_order(id)
-    render(conn, :show, order: order)
+    case OrderService.get_order(id) do
+      nil ->
+        conn
+        |> put_flash(:error, "Order not found.")
+        |> redirect(to: ~p"/orders")
+
+      order ->
+        render(conn, :show, order: order)
+    end
   end
 
   def new(conn, _params) do
@@ -27,15 +33,22 @@ defmodule OrderManagementWeb.OrderController do
   end
 
   def edit(conn, %{"id" => id}) do
-    order = OrderService.get_order(id)
-    changeset = Order.changeset(order, %{})
-    customers = CustomerService.list_customers()
+    case OrderService.get_order(id) do
+      nil ->
+        conn
+        |> put_flash(:error, "Order not found.")
+        |> redirect(to: ~p"/orders")
 
-    render(conn, :edit,
-      order: order,
-      changeset: changeset,
-      customers: customers
-    )
+      order ->
+        changeset = Order.changeset(order, %{})
+        customers = CustomerService.list_customers()
+
+        render(conn, :edit,
+          order: order,
+          changeset: changeset,
+          customers: customers
+        )
+    end
   end
 
   def create(conn, %{"order" => order_params}) do
