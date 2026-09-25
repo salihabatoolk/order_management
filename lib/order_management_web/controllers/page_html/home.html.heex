@@ -18,7 +18,10 @@
 
     <!-- Total Orders -->
 
-    <div class="card bg-base-100 shadow-xl">
+    <a
+      href={~p"/orders"}
+      class="card bg-base-100 shadow-xl hover:shadow-2xl transition"
+    >
       <div class="card-body">
 
         <p class="text-sm text-base-content/60">
@@ -30,12 +33,15 @@
         </h2>
 
       </div>
-    </div>
+    </a>
 
 
     <!-- Total Customers -->
 
-    <div class="card bg-base-100 shadow-xl">
+    <a
+      href={~p"/customers"}
+      class="card bg-base-100 shadow-xl hover:shadow-2xl transition"
+    >
       <div class="card-body">
 
         <p class="text-sm text-base-content/60">
@@ -46,20 +52,20 @@
           <%= @customers_count %>
         </h2>
 
-        <a
-          href={~p"/customers"}
-          class="text-sm text-primary hover:underline mt-2"
-        >
+        <p class="text-sm text-primary mt-2">
           View Customers →
-        </a>
+        </p>
 
       </div>
-    </div>
+    </a>
 
 
     <!-- Pending Orders -->
 
-    <div class="card bg-base-100 shadow-xl">
+    <a
+      href={~p"/orders?status=pending"}
+      class="card bg-base-100 shadow-xl hover:shadow-2xl transition"
+    >
       <div class="card-body">
 
         <div class="flex items-center justify-between">
@@ -83,12 +89,15 @@
         </p>
 
       </div>
-    </div>
+    </a>
 
 
     <!-- Completed Orders -->
 
-    <div class="card bg-base-100 shadow-xl">
+    <a
+      href={~p"/orders?status=completed"}
+      class="card bg-base-100 shadow-xl hover:shadow-2xl transition"
+    >
       <div class="card-body">
 
         <div class="flex items-center justify-between">
@@ -112,12 +121,15 @@
         </p>
 
       </div>
-    </div>
+    </a>
 
 
     <!-- Cancelled Orders -->
 
-    <div class="card bg-base-100 shadow-xl">
+    <a
+      href={~p"/orders?status=cancelled"}
+      class="card bg-base-100 shadow-xl hover:shadow-2xl transition"
+    >
       <div class="card-body">
 
         <div class="flex items-center justify-between">
@@ -141,7 +153,7 @@
         </p>
 
       </div>
-    </div>
+    </a>
 
   </div>
 
@@ -158,12 +170,17 @@
 
       <div class="flex flex-wrap gap-4">
 
+        <!-- Create New Order -->
+
         <a
           href={~p"/orders/new"}
-          class="btn btn-primary"
+          class="btn btn-outline btn-primary"
         >
           + Create New Order
         </a>
+
+
+        <!-- Add New Customer -->
 
         <a
           href={~p"/customers/new"}
@@ -172,9 +189,12 @@
           + Add New Customer
         </a>
 
+
+        <!-- View All Orders -->
+
         <a
           href={~p"/orders"}
-          class="btn btn-outline"
+          class="btn btn-outline btn-accent"
         >
           View All Orders
         </a>

@@ -5,9 +5,49 @@ defmodule OrderManagementWeb.OrderController do
   alias OrderManagement.Orders.OrderService
   alias OrderManagement.Customers.CustomerService
 
+  def index(conn, %{"status" => status}) do
+    case status do
+      "pending" ->
+        orders = OrderService.list_orders_by_status(:pending)
+
+        render(conn, :index,
+          orders: orders,
+          status: "pending"
+        )
+
+      "completed" ->
+        orders = OrderService.list_orders_by_status(:completed)
+
+        render(conn, :index,
+          orders: orders,
+          status: "completed"
+        )
+
+      "cancelled" ->
+        orders = OrderService.list_orders_by_status(:cancelled)
+
+        render(conn, :index,
+          orders: orders,
+          status: "cancelled"
+        )
+
+      _ ->
+        orders = OrderService.list_orders()
+
+        render(conn, :index,
+          orders: orders,
+          status: nil
+        )
+    end
+  end
+
   def index(conn, _params) do
     orders = OrderService.list_orders()
-    render(conn, :index, orders: orders)
+
+    render(conn, :index,
+      orders: orders,
+      status: nil
+    )
   end
 
   def show(conn, %{"id" => id}) do
