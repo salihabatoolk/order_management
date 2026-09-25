@@ -4,9 +4,6 @@
   <div class="mb-8 flex items-center justify-between">
     <div>
       <h1 class="text-3xl font-bold">Orders</h1>
-      <p class="mt-1 text-base-content/60">
-        Manage and track all customer orders
-      </p>
     </div>
 
     <a
@@ -32,8 +29,7 @@
           <thead>
             <tr>
               <th>ID</th>
-              <th>Customer</th>
-              <th>Email</th>
+              <th>Customer ID</th>
               <th>Items</th>
               <th>Status</th>
               <th>Actions</th>
@@ -46,15 +42,17 @@
 
               <tr>
 
+                <!-- Order ID -->
                 <td class="font-semibold">
-                  #<%= order.id %>
+                  <%= order.id %>
                 </td>
 
+                <!-- Customer ID -->
                 <td>
-                  <%= if order.customer do %>
-                    <div class="font-medium">
-                      <%= order.customer.name %>
-                    </div>
+                  <%= if order.customer_id do %>
+                    <span class="font-medium">
+                      <%= order.customer_id %>
+                    </span>
                   <% else %>
                     <span class="text-base-content/50">
                       No Customer
@@ -62,22 +60,15 @@
                   <% end %>
                 </td>
 
-                <td>
-                  <%= if order.customer do %>
-                    <span class="text-sm text-base-content/60">
-                      <%= order.customer.email %>
-                    </span>
-                  <% else %>
-                    -
-                  <% end %>
-                </td>
-
+                <!-- Items -->
                 <td>
                   <%= Enum.join(order.items, ", ") %>
                 </td>
 
+                <!-- Status -->
                 <td>
                   <%= case order.status do %>
+
                     <% :pending -> %>
                       <span class="badge badge-warning">
                         Pending
@@ -92,9 +83,11 @@
                       <span class="badge badge-error">
                         Cancelled
                       </span>
+
                   <% end %>
                 </td>
 
+                <!-- Actions -->
                 <td>
                   <div class="flex gap-2">
 

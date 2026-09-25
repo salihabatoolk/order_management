@@ -57,7 +57,12 @@ defmodule OrderManagementWeb.OrderController do
         order_params,
         "items",
         [],
-        &String.split(&1, ",", trim: true)
+        fn items ->
+          items
+          |> String.split(",")
+          |> Enum.map(&String.trim/1)
+          |> Enum.reject(&(&1 == ""))
+        end
       )
 
     case OrderService.create_order(order_params) do
@@ -86,7 +91,12 @@ defmodule OrderManagementWeb.OrderController do
         order_params,
         "items",
         [],
-        &String.split(&1, ",", trim: true)
+        fn items ->
+          items
+          |> String.split(",")
+          |> Enum.map(&String.trim/1)
+          |> Enum.reject(&(&1 == ""))
+        end
       )
 
     case OrderService.update_order(order, order_params) do

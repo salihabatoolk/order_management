@@ -1,21 +1,13 @@
+
 <div class="min-h-screen bg-base-200 p-6">
   <div class="mx-auto max-w-3xl">
 
     <div class="mb-8">
-      <a
-        href={~p"/customers"}
-        class="text-sm text-primary hover:underline"
-      >
-        ← Back to Customers
-      </a>
+    
 
       <div class="mt-4 flex items-center justify-between">
         <div>
           <h1 class="text-3xl font-bold">Customer Details</h1>
-
-          <p class="mt-1 text-base-content/60">
-            View complete customer information.
-          </p>
         </div>
 
         <span class="badge badge-primary badge-lg">
@@ -44,13 +36,23 @@
               </p>
             </div>
 
-            <div>
+            <div class="mb-4">
               <p class="text-sm text-base-content/50">
                 Email
               </p>
 
               <p class="text-base font-medium">
                 <%= @customer.email %>
+              </p>
+            </div>
+
+            <div>
+              <p class="text-sm text-base-content/50">
+                Phone Number
+              </p>
+
+              <p class="text-base font-medium">
+                <%= @customer.phone %>
               </p>
             </div>
 

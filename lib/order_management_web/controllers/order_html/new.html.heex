@@ -14,10 +14,6 @@
       <h1 class="mt-4 text-3xl font-bold">
         Create New Order
       </h1>
-
-      <p class="mt-1 text-base-content/60">
-        Add a new order and assign it to a customer.
-      </p>
     </div>
 
     <!-- Form Card -->
@@ -25,17 +21,17 @@
 
       <div class="card-body">
 
-        <h2 class="card-title mb-4">
+        <h2 class="card-title mb-6">
           Order Information
         </h2>
 
         <.form for={@changeset} action={~p"/orders"}>
 
           <!-- Customer -->
-          <div class="form-control mb-6">
+          <div class="form-control mb-7">
 
-            <label class="label" for="customer_id">
-              <span class="label-text font-semibold">
+            <label class="label mb-2" for="customer_id">
+              <span class="label-text text-base font-bold">
                 Customer
               </span>
             </label>
@@ -56,16 +52,10 @@
               <% end %>
             </select>
 
-            <label class="label">
-              <span class="label-text-alt text-base-content/50">
-                Select an existing customer
-              </span>
-            </label>
-
           </div>
 
           <!-- Add Customer -->
-          <div class="mb-6">
+          <div class="mb-7">
             <a
               href={~p"/customers/new"}
               class="btn btn-outline btn-secondary btn-sm"
@@ -75,10 +65,10 @@
           </div>
 
           <!-- Items -->
-          <div class="form-control mb-6">
+          <div class="form-control mb-7">
 
-            <label class="label" for="items">
-              <span class="label-text font-semibold">
+            <label class="label mb-2" for="items">
+              <span class="label-text text-base font-bold">
                 Items
               </span>
             </label>
@@ -91,19 +81,13 @@
               class="input input-bordered w-full"
             />
 
-            <label class="label">
-              <span class="label-text-alt text-base-content/50">
-                Separate multiple items with commas
-              </span>
-            </label>
-
           </div>
 
           <!-- Status -->
           <div class="form-control mb-8">
 
-            <label class="label" for="status">
-              <span class="label-text font-semibold">
+            <label class="label mb-2" for="status">
+              <span class="label-text text-base font-bold">
                 Order Status
               </span>
             </label>

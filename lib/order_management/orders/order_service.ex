@@ -1,10 +1,18 @@
-
 defmodule OrderManagement.Orders.OrderService do
+  import Ecto.Query
+
   alias OrderManagement.Repo
   alias OrderManagement.Orders.Order
 
   def list_orders do
     Order
+    |> Repo.all()
+    |> Repo.preload(:customer)
+  end
+
+  def list_orders_by_status(status) do
+    Order
+    |> where([o], o.status == ^status)
     |> Repo.all()
     |> Repo.preload(:customer)
   end

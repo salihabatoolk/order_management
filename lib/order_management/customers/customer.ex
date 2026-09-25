@@ -5,6 +5,7 @@ defmodule OrderManagement.Customers.Customer do
   schema "customers" do
     field :name, :string
     field :email, :string
+    field :phone, :string
 
     has_many :orders, OrderManagement.Orders.Order
 
@@ -13,7 +14,7 @@ defmodule OrderManagement.Customers.Customer do
 
   def changeset(customer, attrs) do
     customer
-    |> cast(attrs, [:name, :email])
-    |> validate_required([:name, :email])
+    |> cast(attrs, [:name, :email, :phone])
+    |> validate_required([:name, :email, :phone])
   end
 end

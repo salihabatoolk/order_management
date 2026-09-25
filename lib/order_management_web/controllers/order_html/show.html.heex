@@ -4,28 +4,19 @@
 
     <!-- Header -->
     <div class="mb-8">
-      <a
-        href={~p"/orders"}
-        class="text-sm text-primary hover:underline"
-      >
-        ← Back to Orders
-      </a>
 
       <div class="mt-4 flex items-center justify-between">
         <div>
           <h1 class="text-3xl font-bold">
             Order Details
           </h1>
-
-          <p class="mt-1 text-base-content/60">
-            View complete information about this order.
-          </p>
         </div>
 
         <span class="badge badge-primary badge-lg">
           Order #<%= @order.id %>
         </span>
       </div>
+
     </div>
 
     <!-- Order Card -->
@@ -35,6 +26,7 @@
 
         <!-- Customer Section -->
         <div class="mb-6">
+
           <h2 class="text-lg font-bold mb-3">
             Customer
           </h2>
@@ -48,7 +40,11 @@
               </p>
 
               <p class="text-sm text-base-content/60 mt-1">
-                <%= @order.customer.email %>
+                Email: <%= @order.customer.email %>
+              </p>
+
+              <p class="text-sm text-base-content/60 mt-1">
+                Phone: <%= @order.customer.phone %>
               </p>
 
             <% else %>
@@ -60,25 +56,33 @@
             <% end %>
 
           </div>
+
         </div>
 
         <!-- Items -->
         <div class="mb-6">
+
           <h2 class="text-lg font-bold mb-3">
             Items
           </h2>
 
           <div class="rounded-xl border border-base-300 p-4">
-            <%= for item <- @order.items do %>
+
+            <%= for {item, index} <- Enum.with_index(@order.items) do %>
+
               <span class="badge badge-outline mr-2 mb-2">
-                <%= item %>
+                <%= item %><%= if index < length(@order.items) - 1, do: "," %>
               </span>
+
             <% end %>
+
           </div>
+
         </div>
 
         <!-- Status -->
         <div class="mb-8">
+
           <h2 class="text-lg font-bold mb-3">
             Status
           </h2>
@@ -101,6 +105,7 @@
               </span>
 
           <% end %>
+
         </div>
 
         <!-- Actions -->
@@ -123,7 +128,9 @@
         </div>
 
       </div>
+
     </div>
 
   </div>
+
 </div>

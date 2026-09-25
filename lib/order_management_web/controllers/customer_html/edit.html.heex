@@ -1,9 +1,10 @@
 <div class="min-h-screen bg-base-200 p-6">
 
-  <div class="mx-auto max-w-2xl">
+  <div class="mx-auto max-w-3xl">
 
     <!-- Header -->
     <div class="mb-8">
+
       <a
         href={~p"/customers"}
         class="text-sm text-primary hover:underline"
@@ -15,9 +16,6 @@
         Edit Customer
       </h1>
 
-      <p class="mt-1 text-base-content/60">
-        Update the customer's information.
-      </p>
     </div>
 
     <!-- Form Card -->
@@ -35,11 +33,11 @@
           method="put"
         >
 
-          <!-- Name -->
-          <div class="form-control mb-6">
+          <!-- Customer Name -->
+          <div class="form-control mb-7">
 
-            <label class="label" for="name">
-              <span class="label-text font-semibold">
+            <label class="label mb-2" for="name">
+              <span class="label-text text-base font-bold">
                 Customer Name
               </span>
             </label>
@@ -56,11 +54,11 @@
           </div>
 
           <!-- Email -->
-          <div class="form-control mb-8">
+          <div class="form-control mb-7">
 
-            <label class="label" for="email">
-              <span class="label-text font-semibold">
-                Email Address
+            <label class="label mb-2" for="email">
+              <span class="label-text text-base font-bold">
+                Email
               </span>
             </label>
 
@@ -69,7 +67,27 @@
               id="email"
               name="customer[email]"
               value={@customer.email}
-              placeholder="customer@example.com"
+              placeholder="Enter customer email"
+              class="input input-bordered w-full"
+            />
+
+          </div>
+
+          <!-- Phone Number -->
+          <div class="form-control mb-8">
+
+            <label class="label mb-2" for="phone">
+              <span class="label-text text-base font-bold">
+                Phone Number
+              </span>
+            </label>
+
+            <input
+              type="tel"
+              id="phone"
+              name="customer[phone]"
+              value={@customer.phone}
+              placeholder="Enter phone number"
               class="input input-bordered w-full"
             />
 
@@ -100,4 +118,5 @@
     </div>
 
   </div>
+
 </div>
